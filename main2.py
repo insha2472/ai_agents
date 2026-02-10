@@ -1,10 +1,11 @@
 from dotenv import load_dotenv
 load_dotenv()
-
+from email_sender import send_email
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.agents import create_agent
 
 def isprime(n:int)->str:
+    """Check if a given number is prime or not."""
     for i in range(2,n):
         if n%i==0:
             return "not prime"
@@ -21,7 +22,7 @@ model = ChatGoogleGenerativeAI(
 
 agent = create_agent(
     model=model,
-    tools=[get_weather,isprime],
+    tools=[get_weather,isprime,send_email],
     system_prompt="You are a helpful assistant",
 )
 
@@ -29,7 +30,7 @@ agent = create_agent(
 
 # Run the agent
 response = agent.invoke(
-    {"messages": [{"role": "user", "content": "what is the weather in mysore and is 2001 prime?"}]}
+    {"messages": [{"role": "user", "content": "what is the weather in mysore and is 2001 prime, send an email to tanyashrim2005@gmail.com with the content about the weather and the prime number "}]}
 )
 
 # Print only the final AI response
