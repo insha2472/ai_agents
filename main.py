@@ -1,7 +1,10 @@
+from fastapi import FastAPI
 from dotenv import load_dotenv
 load_dotenv()
 
 from langchain_google_genai import ChatGoogleGenerativeAI
+
+app = FastAPI()
 
 model = ChatGoogleGenerativeAI(
     model="gemini-3-flash-preview",
@@ -9,9 +12,13 @@ model = ChatGoogleGenerativeAI(
     max_tokens=None,
     timeout=None,
     max_retries=2,
-    # other params...
 )
 
-response = model.invoke("Hello, how are you?")
+@app.get("/")
+def read_root():
+    return {"message": "Welcome to the AI Agent API!"}
 
-print(response.text)
+@app.get("/ask")
+def ask_ai(prompt: str = "Hello, how are you?"):
+    response = model.invoke(prompt)
+    return {"response": response.content}

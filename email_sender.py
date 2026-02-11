@@ -1,7 +1,7 @@
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-from secrets import sender_email, receiver_email, password
+from app_secrets import sender_email, receiver_email, password
 
 def send_email(receiver_email: str, content: str) -> str:
     """Send an email to the given receiver with the provided content."""

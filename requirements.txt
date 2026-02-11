@@ -89,3 +89,7 @@ websockets==15.0.1
 wrapt==2.1.1
 xxhash==3.6.0
 zstandard==0.25.0
+azure-ai-inference==1.0.0b9
+azure-core==1.38.1
+fastapi
+uvicorn
